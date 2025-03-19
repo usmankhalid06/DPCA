@@ -5,23 +5,30 @@ clc;
 
 
 %% parameters
-sp = simtb_create_sP('exp_params_aod');
-N = sp.nT; %number of time samples 
-nV = sp.nV; %sqrt of number of voxels
-nSRCS = sp.nC; %number of sources
+% sp = simtb_create_sP('exp_params_aod');
+% N = sp.nT; %number of time samples 
+% nV = sp.nV; %sqrt of number of voxels
+% nSRCS = sp.nC; %number of sources
 K =8 ; %dimensionality reduction sources
 nIter = 30; %algorithm iterations
 tstd  = sqrt(0.9); %0.9
 sstd  =  sqrt(0.005); %0.01
-Dp = dctbases(N,N); %dct basis dictionary
+% Dp = dctbases(N,N); %dct basis dictionary
 nf = sqrt(70*15.49); 
+
+load TC
+load SM
+N = size(TC,1);
+nV = sqrt(size(SM,2));
+nSRCS = 8;
+Dp = dctbases(N,N); %dct basis dictionary
 
 % for j=1:1
 j = 1;    
 
-    sp.SM_spread =8+0.05*randn(N,nV*nV); %0.0001
-    SM = simtb_makeSM(sp,1);   % Create spatial maps
-    TC = zscore(simtb_makeTC(sp,1));  % Create TCs 
+%     sp.SM_spread =8+0.05*randn(N,nV*nV); %0.0001
+%     SM = simtb_makeSM(sp,1);   % Create spatial maps
+%     TC = zscore(simtb_makeTC(sp,1));  % Create TCs 
 
     
     TC = zscore(Dp(:,3:8:60));
